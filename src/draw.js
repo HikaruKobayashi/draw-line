@@ -1,4 +1,5 @@
 import { extensionStyles } from './styles.js';
+import { config } from './config.js';
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	if (request == "Action") {
@@ -50,7 +51,7 @@ const drawLine = () => {
   // draw a line
   const drawLine = () => {
     context.beginPath();
-    context.strokeStyle = '#ABDBEB'; // line color
+    context.strokeStyle = config.lineColor; // line color
     context.moveTo(startPointX, startPointY); // starting point
     context.lineTo(endPointX, endPointY); // ending point
     context.stroke(); // draw a line

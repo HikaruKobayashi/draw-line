@@ -19,7 +19,8 @@
     {
       "resources": [
         "src/draw.js",
-        "src/styles.js"
+        "src/styles.js",
+        "src/config.js"
       ],
       "matches": ["<all_urls>"]
     }
