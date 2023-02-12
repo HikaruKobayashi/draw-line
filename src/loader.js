@@ -1,4 +1,4 @@
 (async() => {
-  const src = chrome.runtime.getURL("src/draw.js");
+  const src = chrome.runtime.getURL("src/content.js");
   const contentMain = await import(src);
 })();

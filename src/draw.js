@@ -1,13 +1,7 @@
 import { extensionStyles } from './styles.js';
 import { config } from './config.js';
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	if (request == "Action") {
-    drawLine();
-	}
-});
-
-const drawLine = () => {
+export const drawLine = () => {
   // create canvas element
   const targetCanvas = document.createElement('canvas');
   targetCanvas.className = 'line-draw';
