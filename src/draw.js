@@ -45,6 +45,7 @@ export const drawLine = () => {
   // draw a line
   const drawLine = () => {
     context.beginPath();
+    context.lineWidth = config.lineWidth; // line width
     context.strokeStyle = config.lineColor; // line color
     context.moveTo(startPointX, startPointY); // starting point
     context.lineTo(endPointX, endPointY); // ending point

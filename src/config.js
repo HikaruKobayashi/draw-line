@@ -1,4 +1,6 @@
 export const config = {
   // canvas line color
-  lineColor: '#ABDBEB'
+  lineColor: '#ABDBEB',
+  // canvas line width
+  lineWidth: 2,
 };
