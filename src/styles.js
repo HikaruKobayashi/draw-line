@@ -6,14 +6,13 @@ export const extensionStyles = `
     position: absolute;
     overflow: hidden;
     z-index: 999999999;
-    pointer-events: none;
     top:0;
     left:0;
   }
   .reset-button {
     z-index: 999999999;
-    position:absolute;
-    top:100px;
-    left:100px;
+    position:fixed;
+    bottom:100px;
+    right:100px;
   }
 `;
