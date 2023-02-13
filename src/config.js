@@ -1,6 +1,8 @@
 export const config = {
-  // canvas line color
-  lineColor: '#ABDBEB',
-  // canvas line width
-  lineWidth: 2,
+  // canvas
+  lineColor: '#ABDBEB', // line color
+  lineWidth: 2, // line width
+
+  // reset button
+  resetButtonText: 'reset',
 };

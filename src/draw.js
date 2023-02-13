@@ -9,7 +9,7 @@ export const drawLine = () => {
 
   // create reset button element
   const resetButton = document.createElement('button');
-  resetButton.innerHTML = 'reset';
+  resetButton.innerHTML = config.resetButtonText;
   resetButton.className = 'reset-button';
   document.body.appendChild(resetButton);
 
