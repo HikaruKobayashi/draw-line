@@ -1,22 +1,24 @@
-import { extensionStyles } from './styles.js';
-import { config } from './config.js';
+import { extensionStyles } from "./styles.js";
+import { config } from "./config.js";
 
 export const drawLine = () => {
   // create canvas element
-  const targetCanvas = document.createElement('canvas');
-  targetCanvas.className = 'line-draw';
+  const targetCanvas = document.createElement("canvas");
+  targetCanvas.className = "line-draw";
   document.body.appendChild(targetCanvas);
 
   // create reset button element
-  const resetButton = document.createElement('button');
+  const resetButton = document.createElement("button");
   resetButton.innerHTML = config.resetButtonText;
-  resetButton.className = 'reset-button';
+  resetButton.className = "reset-button";
   document.body.appendChild(resetButton);
 
   // create style
-  const styleElement = document.createElement('style');
+  const styleElement = document.createElement("style");
   styleElement.innerText = extensionStyles;
-  document.getElementsByTagName('head')[0].insertAdjacentElement('beforeend', styleElement);
+  document
+    .getElementsByTagName("head")[0]
+    .insertAdjacentElement("beforeend", styleElement);
 
   // init coordinate setting
   let startPointX = 0;
@@ -27,17 +29,17 @@ export const drawLine = () => {
   // canvas setting
   targetCanvas.width = window.innerWidth;
   targetCanvas.height = window.innerHeight;
-  const context = targetCanvas.getContext('2d');
+  const context = targetCanvas.getContext("2d");
 
   // get starting point
-  document.addEventListener('mousedown', event => {
+  document.addEventListener("mousedown", (event) => {
     startPointX = event.clientX;
     startPointY = event.clientY;
   });
 
   // get ending point
-  document.addEventListener('mouseup', event => {
-    endPointX= event.clientX;
+  document.addEventListener("mouseup", (event) => {
+    endPointX = event.clientX;
     endPointY = event.clientY;
     drawLine();
   });
@@ -53,15 +55,15 @@ export const drawLine = () => {
   };
 
   // reset this extension
-  resetButton.addEventListener('click', () => {
+  resetButton.addEventListener("click", () => {
     resetLineDraw();
   });
   const resetLineDraw = () => {
-    let targetCanvas = document.querySelector('.line-draw');
+    let targetCanvas = document.querySelector(".line-draw");
     if (targetCanvas !== null) {
       document.body.removeChild(targetCanvas);
       document.body.removeChild(resetButton);
     }
-    targetCanvas = '';
+    targetCanvas = "";
   };
 };
