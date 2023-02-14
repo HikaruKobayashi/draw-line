@@ -1,0 +1,8 @@
+{
+  "name": "line_draw",
+  "version": "1.0.0",
+  "description": "This is a Google Chrome extenstion what can draw a line on your browser.",
+  "devDependencies": {
+    "rome": "^11.0.0"
+  }
+}

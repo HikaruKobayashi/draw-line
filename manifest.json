@@ -3,18 +3,17 @@
   "description": "We can draw a line on Browser.",
   "version": "1.0",
   "manifest_version": 3,
-  "action": {
-  },
+  "action": {},
   "content_scripts": [
     {
-      "run_at":"document_end",
+      "run_at": "document_end",
       "matches": ["<all_urls>"],
-      "js": [ "src/loader.js" ]
+      "js": ["src/loader.js"]
     }
   ],
   "background": {
     "service_worker": "src/background.js"
-	},
+  },
   "web_accessible_resources": [
     {
       "resources": [
