@@ -7,11 +7,22 @@ export const drawLine = () => {
   targetCanvas.className = "line-draw";
   document.body.appendChild(targetCanvas);
 
+  // create wrapper element
+  const wrapper = document.createElement("div");
+  wrapper.className = "line-draw-wrapper";
+  document.body.appendChild(wrapper);
+
+  // create color picker
+  const colorPicker = document.createElement("input");
+  colorPicker.type = "color";
+  colorPicker.className = "line-draw-color-picker";
+  wrapper.appendChild(colorPicker);
+
   // create reset button element
   const resetButton = document.createElement("button");
   resetButton.innerHTML = config.resetButtonText;
-  resetButton.className = "reset-button";
-  document.body.appendChild(resetButton);
+  resetButton.className = "line-draw-reset-button";
+  wrapper.appendChild(resetButton);
 
   // create style
   const styleElement = document.createElement("style");
@@ -19,6 +30,13 @@ export const drawLine = () => {
   document
     .getElementsByTagName("head")[0]
     .insertAdjacentElement("beforeend", styleElement);
+
+  // change line color
+  let lineColor = config.lineColor;
+  let colorBox = document.querySelector(".line-draw-color-picker");
+  colorBox.addEventListener("change", (event) => {
+    lineColor = event.target.value;
+  });
 
   // init coordinate setting
   let startPointX = 0;
@@ -48,7 +66,7 @@ export const drawLine = () => {
   const drawLine = () => {
     context.beginPath();
     context.lineWidth = config.lineWidth; // line width
-    context.strokeStyle = config.lineColor; // line color
+    context.strokeStyle = lineColor; // line color
     context.moveTo(startPointX, startPointY); // starting point
     context.lineTo(endPointX, endPointY); // ending point
     context.stroke(); // draw a line
@@ -62,7 +80,7 @@ export const drawLine = () => {
     let targetCanvas = document.querySelector(".line-draw");
     if (targetCanvas !== null) {
       document.body.removeChild(targetCanvas);
-      document.body.removeChild(resetButton);
+      document.body.removeChild(wrapper);
     }
     targetCanvas = "";
   };
