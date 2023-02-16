@@ -3,6 +3,11 @@
   "description": "We can draw a line on Browser.",
   "version": "1.0",
   "manifest_version": 3,
+  "icons": {
+    "32": "assets/icon32×32.png",
+    "48": "assets/icon48×48.png",
+    "128": "assets/icon128×128.png"
+  },
   "action": {},
   "content_scripts": [
     {
