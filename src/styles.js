@@ -3,14 +3,14 @@ export const extensionStyles = `
     position: relative;
   }
   .line-draw {
-    position: absolute;
+    z-index: 9999999;
+    position: fixed;
     overflow: hidden;
-    z-index: 999;
     top: 0;
     left: 0;
   }
   .line-draw-wrapper {
-    z-index: 999;
+    z-index: 9999999;
     position: fixed;
     right: 5px;
     top: 5px;
@@ -35,6 +35,7 @@ export const extensionStyles = `
     text-decoration: none;
     color: #fff;
     background: linear-gradient(to right, #77abda, #665cf5);
+    border: none;
     border-radius: 20px;
     margin: auto auto 10px;
     cursor: pointer;
