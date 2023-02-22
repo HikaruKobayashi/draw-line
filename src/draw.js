@@ -2,6 +2,11 @@ import { extensionStyles } from "./styles.js";
 import { config } from "./config.js";
 
 export const drawLine = () => {
+  // avoid duplication
+  if (document.querySelector(".line-draw")) {
+    return;
+  }
+
   // create canvas element
   const targetCanvas = document.createElement("canvas");
   targetCanvas.className = "line-draw";
