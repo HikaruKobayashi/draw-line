@@ -48,27 +48,59 @@ export const drawLine = () => {
   let startPointY = 0;
   let endPointX = 0;
   let endPointY = 0;
+  let movePointX = 0;
+  let movePointY = 0;
+
+  // line positions
+  let storedLines = [];
 
   // canvas setting
   targetCanvas.width = window.innerWidth;
   targetCanvas.height = window.innerHeight;
   const context = targetCanvas.getContext("2d");
 
+  // mouse move flg
+  let isMove = false;
+
+  // toggle isMove flg
+  const toggleIsMove = () => {
+    isMove = !isMove;
+  };
+
   // get starting point
   document.addEventListener("mousedown", (event) => {
     startPointX = event.clientX;
     startPointY = event.clientY;
+    toggleIsMove();
+  });
+
+  // get moving point and draw line
+  document.addEventListener("mousemove", (event) => {
+    if (!isMove) {
+      return;
+    }
+    resetAndDraw();
+    movePointX = event.clientX;
+    movePointY = event.clientY;
+    drawLine(startPointX, startPointY, movePointX, movePointY);
   });
 
   // get ending point
   document.addEventListener("mouseup", (event) => {
+    toggleIsMove();
     endPointX = event.clientX;
     endPointY = event.clientY;
-    drawLine();
+    // store lines position
+    storedLines.push({
+      startPointX: startPointX,
+      startPointY: startPointY,
+      endPointX: endPointX,
+      endPointY: endPointY,
+    });
   });
 
   // draw a line
-  const drawLine = () => {
+  const drawLine = (startPointX, startPointY, endPointX, endPointY) => {
     context.beginPath();
     context.lineWidth = config.lineWidth; // line width
     context.strokeStyle = lineColor; // line color
@@ -77,16 +109,28 @@ export const drawLine = () => {
     context.stroke(); // draw a line
   };
 
+  const resetAndDraw = () => {
+    // reset line
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    if (storedLines.length === 0) {
+      return;
+    }
+    for (let i = 0; i < storedLines.length; i++) {
+      drawLine(
+        storedLines[i].startPointX,
+        storedLines[i].startPointY,
+        storedLines[i].endPointX,
+        storedLines[i].endPointY
+      );
+    }
+  };
+
   // reset this extension
   resetButton.addEventListener("click", () => {
     resetLineDraw();
   });
   const resetLineDraw = () => {
-    let targetCanvas = document.querySelector(".line-draw");
-    if (targetCanvas !== null) {
-      document.body.removeChild(targetCanvas);
-      document.body.removeChild(wrapper);
-    }
-    targetCanvas = "";
+    storedLines = [];
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   };
 };
