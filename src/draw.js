@@ -1,5 +1,5 @@
-import { extensionStyles } from "./styles.js";
 import { config } from "./config.js";
+import { createItem } from "./item.js";
 
 export const drawLine = () => {
   // avoid duplication
@@ -12,29 +12,8 @@ export const drawLine = () => {
   targetCanvas.className = "line-draw";
   document.body.appendChild(targetCanvas);
 
-  // create wrapper element
-  const wrapper = document.createElement("div");
-  wrapper.className = "line-draw-wrapper";
-  document.body.appendChild(wrapper);
-
-  // create color picker
-  const colorPicker = document.createElement("input");
-  colorPicker.type = "color";
-  colorPicker.className = "line-draw-color-picker";
-  wrapper.appendChild(colorPicker);
-
-  // create reset button element
-  const resetButton = document.createElement("button");
-  resetButton.innerHTML = config.resetButtonText;
-  resetButton.className = "line-draw-reset-button";
-  wrapper.appendChild(resetButton);
-
-  // create style
-  const styleElement = document.createElement("style");
-  styleElement.innerText = extensionStyles;
-  document
-    .getElementsByTagName("head")[0]
-    .insertAdjacentElement("beforeend", styleElement);
+  // create other element and styles
+  createItem();
 
   // change line color
   let lineColor = config.lineColor;
@@ -125,12 +104,29 @@ export const drawLine = () => {
     }
   };
 
-  // reset this extension
+  // reset all lines
+  const resetButton = document.querySelector(".line-draw-reset-button");
   resetButton.addEventListener("click", () => {
     resetLineDraw();
   });
   const resetLineDraw = () => {
     storedLines = [];
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+  };
+
+  // close this extension
+  const closeButton = document.querySelector(".line-draw-close-button");
+  closeButton.addEventListener("click", () => {
+    closeExtenstion();
+  });
+  const closeExtenstion = () => {
+    const wrapper = document.querySelector(".line-draw-wrapper");
+    let targetCanvas = document.querySelector(".line-draw");
+    if (targetCanvas !== null) {
+      document.body.removeChild(targetCanvas);
+      document.body.removeChild(wrapper);
+    }
+    storedLines = [];
+    targetCanvas = "";
   };
 };

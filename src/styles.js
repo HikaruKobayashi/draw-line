@@ -43,4 +43,19 @@ export const extensionStyles = `
   .line-draw-reset-button:hover {
     opacity: 0.75;
   }
+  .line-draw-close-button {
+    position: absolute;
+    display: block;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 15px;
+    height: 15px;
+    top: 10px;
+    right: 10px;
+    background: url(${chrome.runtime.getURL(
+      "assets/close.png"
+    )}) no-repeat left top;
+    background-size: contain;
+  }
 `;

@@ -22,10 +22,12 @@
   "web_accessible_resources": [
     {
       "resources": [
+        "assets/*",
         "src/content.js",
         "src/draw.js",
         "src/styles.js",
-        "src/config.js"
+        "src/config.js",
+        "src/item.js"
       ],
       "matches": ["<all_urls>"]
     }
