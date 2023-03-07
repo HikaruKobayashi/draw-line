@@ -1,0 +1,125 @@
+@charset "utf-8";
+
+body {
+  position: relative;
+}
+.line-draw {
+  z-index: 9999999999 !important;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+.line-draw-container {
+  z-index: 9999999999 !important;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 180px;
+  height: fit-content;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: #fff;
+}
+.line-draw-container > ul {
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  list-style: none;
+  box-sizing: border-box;
+}
+.line-draw-container > ul > li {
+  border-bottom: 1px solid #ddd;
+  padding: 8px 0;
+}
+.line-draw-container > ul > li:last-child {
+  border-bottom: none;
+}
+.line-draw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.line-draw-title {
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+  border: none;
+}
+.line-draw-close-button {
+  display: block;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 12px;
+  height: 12px;
+  background: url("./../images/close.png") no-repeat left top;
+  background-size: contain;
+}
+.line-draw-close-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+.line-draw-change-straight-line-button,
+.line-draw-change-square-button,
+.line-draw-change-circle-button {
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+  border: none;
+  margin: 0;
+  padding-left: 25px;
+  position: relative;
+}
+.line-draw-change-straight-line-button::before,
+.line-draw-change-square-button::before,
+.line-draw-change-circle-button::before {
+  content: "";
+  display: block;
+  position: absolute;
+  border: none;
+  width: 18px;
+  height: 18px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: url("./../images/check-disabled.png") no-repeat left top;
+  background-size: contain;
+}
+.line-draw-change-straight-line-button:hover,
+.line-draw-change-square-button:hover,
+.line-draw-change-circle-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+.is-active::before {
+  background: url("./../images/check-active.png") no-repeat left top;
+  background-size: contain;
+}
+.line-draw-color-picker-wrapper {
+  display: flex;
+  align-items: center;
+}
+.line-draw-color-picker {
+  width: 80%;
+  height: 30px;
+  margin: 0 auto;
+}
+.line-draw-footer {
+  text-align: center;
+}
+.line-draw-reset-button {
+  color: #333;
+  padding: 3px 8px;
+  text-decoration: none;
+  border: none;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
+  background-color: #fff;
+}
+.line-draw-reset-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}

@@ -1,8 +1,10 @@
 export const config = {
   // canvas
-  lineColor: "#333", // line color
+  lineColor: "#333333", // line color
   lineWidth: 2, // line width
 
-  // reset button
-  resetButtonText: "reset line draw",
+  // line type
+  straightLine: 1,
+  square: 2,
+  circle: 3,
 };

@@ -38,6 +38,34 @@ export const drawLine = () => {
   targetCanvas.height = window.innerHeight;
   const context = targetCanvas.getContext("2d");
 
+  // change line type
+  let lineType = config.straightLine; // default setting
+  const changeStraightLineButton = document.querySelector(
+    ".line-draw-change-straight-line-button"
+  );
+  changeStraightLineButton.addEventListener("click", function () {
+    changeActiveLineType(this, config.straightLine);
+  });
+  const changeSquareButton = document.querySelector(
+    ".line-draw-change-square-button"
+  );
+  changeSquareButton.addEventListener("click", function () {
+    changeActiveLineType(this, config.square);
+  });
+  const changeCircleButton = document.querySelector(
+    ".line-draw-change-circle-button"
+  );
+  changeCircleButton.addEventListener("click", function () {
+    changeActiveLineType(this, config.circle);
+  });
+
+  // change active line type
+  const changeActiveLineType = (item, type) => {
+    document.querySelector(".is-active").classList.remove("is-active");
+    item.classList.add("is-active");
+    lineType = type;
+  };
+
   // mouse move flg
   let isMove = false;
 
@@ -61,7 +89,14 @@ export const drawLine = () => {
     resetAndDraw();
     movePointX = event.clientX;
     movePointY = event.clientY;
-    drawLine(startPointX, startPointY, movePointX, movePointY);
+    drawLine(
+      startPointX,
+      startPointY,
+      movePointX,
+      movePointY,
+      lineType,
+      lineColor
+    );
   });
 
   // get ending point
@@ -75,16 +110,50 @@ export const drawLine = () => {
       startPointY: startPointY,
       endPointX: endPointX,
       endPointY: endPointY,
+      lineType: lineType,
+      color: lineColor,
     });
   });
 
   // draw a line
-  const drawLine = (startPointX, startPointY, endPointX, endPointY) => {
+  const drawLine = (
+    startPointX,
+    startPointY,
+    endPointX,
+    endPointY,
+    lineType,
+    color
+  ) => {
     context.beginPath();
     context.lineWidth = config.lineWidth; // line width
-    context.strokeStyle = lineColor; // line color
-    context.moveTo(startPointX, startPointY); // starting point
-    context.lineTo(endPointX, endPointY); // ending point
+    context.strokeStyle = color; // line color
+    switch (true) {
+      case lineType === config.straightLine:
+        context.moveTo(startPointX, startPointY);
+        context.lineTo(endPointX, endPointY);
+        break;
+      case lineType === config.square:
+        context.rect(
+          startPointX,
+          startPointY,
+          endPointX - startPointX,
+          endPointY - startPointY
+        );
+        break;
+      case lineType === config.circle:
+        context.arc(
+          endPointX - (endPointX - startPointX) / 2,
+          endPointY - (endPointY - startPointY) / 2,
+          endPointX - startPointX >= 0
+            ? (endPointX - startPointX) / 2
+            : (startPointX - endPointX) / 2,
+          0,
+          Math.PI * 2
+        );
+        break;
+      default:
+        break;
+    }
     context.stroke(); // draw a line
   };
 
@@ -99,7 +168,9 @@ export const drawLine = () => {
         storedLines[i].startPointX,
         storedLines[i].startPointY,
         storedLines[i].endPointX,
-        storedLines[i].endPointY
+        storedLines[i].endPointY,
+        storedLines[i].lineType,
+        storedLines[i].color
       );
     }
   };
@@ -111,7 +182,12 @@ export const drawLine = () => {
   });
   const resetLineDraw = () => {
     storedLines = [];
+    lineType = config.straightLine;
+    lineColor = config.lineColor;
+    colorBox.value = config.lineColor;
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    document.querySelector(".is-active").classList.remove("is-active");
+    changeStraightLineButton.classList.add("is-active");
   };
 
   // close this extension
@@ -120,11 +196,11 @@ export const drawLine = () => {
     closeExtenstion();
   });
   const closeExtenstion = () => {
-    const wrapper = document.querySelector(".line-draw-wrapper");
+    const container = document.querySelector(".line-draw-container");
     let targetCanvas = document.querySelector(".line-draw");
     if (targetCanvas !== null) {
       document.body.removeChild(targetCanvas);
-      document.body.removeChild(wrapper);
+      document.body.removeChild(container);
     }
     storedLines = [];
     targetCanvas = "";
