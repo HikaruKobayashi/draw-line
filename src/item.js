@@ -1,7 +1,7 @@
 export const createItem = () => {
   // create container element
   const container = document.createElement("div");
-  container.className = "line-draw-container";
+  container.className = "draw-line-container";
   document.body.appendChild(container);
 
   // create wrapper element
@@ -10,18 +10,18 @@ export const createItem = () => {
 
   // create header element
   const header = document.createElement("li");
-  header.className = "line-draw-header";
+  header.className = "draw-line-header";
   wrapper.appendChild(header);
 
   // create title element
   const title = document.createElement("h1");
-  title.innerHTML = "line draw";
-  title.className = "line-draw-title";
+  title.innerHTML = "draw line";
+  title.className = "draw-line-title";
   header.appendChild(title);
 
   // create close button element
   const closeButton = document.createElement("button");
-  closeButton.className = "line-draw-close-button";
+  closeButton.className = "draw-line-close-button";
   header.appendChild(closeButton);
 
   // create line type wrapper element
@@ -32,41 +32,41 @@ export const createItem = () => {
   const changeStraightLineButton = document.createElement("p");
   changeStraightLineButton.innerHTML = "直線";
   changeStraightLineButton.className =
-    "line-draw-change-straight-line-button is-active";
+    "draw-line-change-straight-line-button is-active";
   changeLineTypeWrapper.appendChild(changeStraightLineButton);
 
   // create change square button element
   const changeSquareButton = document.createElement("p");
   changeSquareButton.innerHTML = "四角";
-  changeSquareButton.className = "line-draw-change-square-button";
+  changeSquareButton.className = "draw-line-change-square-button";
   changeLineTypeWrapper.appendChild(changeSquareButton);
 
   // create change circle button element
   const changeCircleButton = document.createElement("p");
   changeCircleButton.innerHTML = "丸";
-  changeCircleButton.className = "line-draw-change-circle-button";
+  changeCircleButton.className = "draw-line-change-circle-button";
   changeLineTypeWrapper.appendChild(changeCircleButton);
 
   // create color picker wrapper element
   const colorPickerWrapper = document.createElement("li");
-  colorPickerWrapper.className = "line-draw-color-picker-wrapper";
+  colorPickerWrapper.className = "draw-line-color-picker-wrapper";
   wrapper.appendChild(colorPickerWrapper);
 
   // create color picker
   const colorPicker = document.createElement("input");
   colorPicker.type = "color";
-  colorPicker.className = "line-draw-color-picker";
+  colorPicker.className = "draw-line-color-picker";
   colorPickerWrapper.appendChild(colorPicker);
 
   // create footer element
   const footer = document.createElement("li");
-  footer.className = "line-draw-footer";
+  footer.className = "draw-line-footer";
   wrapper.appendChild(footer);
 
   // create reset button element
   const resetButton = document.createElement("button");
   resetButton.innerHTML = "リセット";
-  resetButton.className = "line-draw-reset-button";
+  resetButton.className = "draw-line-reset-button";
   footer.appendChild(resetButton);
 
   // create style

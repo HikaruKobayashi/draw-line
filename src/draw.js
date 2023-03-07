@@ -3,13 +3,13 @@ import { createItem } from "./item.js";
 
 export const drawLine = () => {
   // avoid duplication
-  if (document.querySelector(".line-draw")) {
+  if (document.querySelector(".draw-line")) {
     return;
   }
 
   // create canvas element
   const targetCanvas = document.createElement("canvas");
-  targetCanvas.className = "line-draw";
+  targetCanvas.className = "draw-line";
   document.body.appendChild(targetCanvas);
 
   // create other element and styles
@@ -17,7 +17,7 @@ export const drawLine = () => {
 
   // change line color
   let lineColor = config.lineColor;
-  let colorBox = document.querySelector(".line-draw-color-picker");
+  let colorBox = document.querySelector(".draw-line-color-picker");
   colorBox.addEventListener("change", (event) => {
     lineColor = event.target.value;
   });
@@ -41,19 +41,19 @@ export const drawLine = () => {
   // change line type
   let lineType = config.straightLine; // default setting
   const changeStraightLineButton = document.querySelector(
-    ".line-draw-change-straight-line-button"
+    ".draw-line-change-straight-line-button"
   );
   changeStraightLineButton.addEventListener("click", function () {
     changeActiveLineType(this, config.straightLine);
   });
   const changeSquareButton = document.querySelector(
-    ".line-draw-change-square-button"
+    ".draw-line-change-square-button"
   );
   changeSquareButton.addEventListener("click", function () {
     changeActiveLineType(this, config.square);
   });
   const changeCircleButton = document.querySelector(
-    ".line-draw-change-circle-button"
+    ".draw-line-change-circle-button"
   );
   changeCircleButton.addEventListener("click", function () {
     changeActiveLineType(this, config.circle);
@@ -176,11 +176,11 @@ export const drawLine = () => {
   };
 
   // reset all lines
-  const resetButton = document.querySelector(".line-draw-reset-button");
+  const resetButton = document.querySelector(".draw-line-reset-button");
   resetButton.addEventListener("click", () => {
-    resetLineDraw();
+    resetDrawLine();
   });
-  const resetLineDraw = () => {
+  const resetDrawLine = () => {
     storedLines = [];
     lineType = config.straightLine;
     lineColor = config.lineColor;
@@ -191,13 +191,13 @@ export const drawLine = () => {
   };
 
   // close this extension
-  const closeButton = document.querySelector(".line-draw-close-button");
+  const closeButton = document.querySelector(".draw-line-close-button");
   closeButton.addEventListener("click", () => {
     closeExtenstion();
   });
   const closeExtenstion = () => {
-    const container = document.querySelector(".line-draw-container");
-    let targetCanvas = document.querySelector(".line-draw");
+    const container = document.querySelector(".draw-line-container");
+    let targetCanvas = document.querySelector(".draw-line");
     if (targetCanvas !== null) {
       document.body.removeChild(targetCanvas);
       document.body.removeChild(container);
