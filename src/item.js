@@ -64,6 +64,12 @@ export const createItem = () => {
   wrapper.appendChild(footer);
 
   // create reset button element
+  const backButton = document.createElement("button");
+  backButton.innerHTML = "戻す";
+  backButton.className = "draw-line-back-button";
+  footer.appendChild(backButton);
+
+  // create reset button element
   const resetButton = document.createElement("button");
   resetButton.innerHTML = "リセット";
   resetButton.className = "draw-line-reset-button";
