@@ -176,7 +176,7 @@ export const drawLine = () => {
     }
   };
 
-  // back
+  // back to previous states
   const backButton = document.querySelector(".draw-line-back-button");
   backButton.addEventListener("click", () => {
     storedLines.pop();
