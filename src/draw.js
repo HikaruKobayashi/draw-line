@@ -179,22 +179,9 @@ export const drawLine = () => {
   // back
   const backButton = document.querySelector(".draw-line-back-button");
   backButton.addEventListener("click", () => {
-    backDrawLine();
+    storedLines.pop();
+    resetAndDraw();
   });
-  const backDrawLine = () => {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    storedLines = storedLines.slice(0, -1);
-    for (let i = 0; i < storedLines.length; i++) {
-      drawLine(
-        storedLines[i].startPointX,
-        storedLines[i].startPointY,
-        storedLines[i].endPointX,
-        storedLines[i].endPointY,
-        storedLines[i].lineType,
-        storedLines[i].color
-      );
-    }
-  };
 
   // reset all lines
   const resetButton = document.querySelector(".draw-line-reset-button");
