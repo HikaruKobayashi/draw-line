@@ -18,6 +18,7 @@ const createElement = () => {
             <input type="color" class="draw-line-color-picker">
           </li>
           <li class="draw-line-footer">
+            <button class="draw-line-back-button">戻す</button>
             <button class="draw-line-reset-button">リセット</button>
           </li>
         </ul>

@@ -105,6 +105,7 @@ export const drawLine = () => {
     endPointX = event.clientX;
     endPointY = event.clientY;
     // store lines position
+    if (startPointX === endPointX && startPointY === endPointY) return;
     storedLines.push({
       startPointX: startPointX,
       startPointY: startPointY,
@@ -174,6 +175,13 @@ export const drawLine = () => {
       );
     }
   };
+
+  // back to previous states
+  const backButton = document.querySelector(".draw-line-back-button");
+  backButton.addEventListener("click", () => {
+    storedLines.pop();
+    resetAndDraw();
+  });
 
   // reset all lines
   const resetButton = document.querySelector(".draw-line-reset-button");
