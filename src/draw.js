@@ -213,4 +213,14 @@ export const drawLine = () => {
     storedLines = [];
     targetCanvas = "";
   };
+
+  // toggle browser control
+  const lockButton = document.querySelector(".draw-line-lock-button");
+  lockButton.addEventListener("change", () => {
+    if (targetCanvas.classList.contains("draw-line-unlocked")) {
+      targetCanvas.classList.remove("draw-line-unlocked");
+    } else {
+      targetCanvas.classList.add("draw-line-unlocked");
+    }
+  });
 };

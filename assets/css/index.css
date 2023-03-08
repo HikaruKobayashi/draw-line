@@ -10,6 +10,9 @@ body {
   top: 0;
   left: 0;
 }
+.draw-line-unlocked {
+  pointer-events: none;
+}
 .draw-line-container {
   z-index: 9999999999 !important;
   position: fixed;
@@ -33,19 +36,27 @@ body {
   border-bottom: 1px solid #ddd;
   padding: 8px 0;
 }
-.draw-line-container > ul > li:last-child {
-  border-bottom: none;
-}
-.draw-line-header {
+.draw-line-container > ul > li:first-child {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+.draw-line-container > ul > li:last-child {
+  border-bottom: none;
+}
 .draw-line-title {
+  display: block;
   font-size: 16px;
   color: #333;
   margin: 0;
   border: none;
+}
+.draw-line-sub-title {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+  border: none;
+  margin-bottom: 5px;
 }
 .draw-line-close-button {
   display: block;
@@ -60,6 +71,79 @@ body {
 .draw-line-close-button:hover {
   cursor: pointer;
   opacity: 0.6;
+}
+.draw-line-screen-lock-toggle-button {
+  width: 60%;
+  height: fit-content;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+}
+.draw-line-screen-lock-toggle-button > input {
+  display: none;
+}
+.draw-line-screen-lock-toggle-button-content {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  border-radius: 30px;
+  height: 26px;
+  overflow: hidden;
+}
+.draw-line-screen-lock-toggle-button-content:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  top: 0;
+  left: 0;
+  border: 1.5px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+}
+.draw-line-screen-lock-toggle-button-content:after {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: transparent;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 20px;
+  transition: all 0.5s;
+}
+.draw-line-screen-lock-toggle-button-circle {
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 5px;
+  margin: auto;
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 13px;
+  background-color: #ccc;
+  transition: all 0.5s;
+}
+.draw-line-screen-lock-toggle-button
+  > input:checked
+  ~ .draw-line-screen-lock-toggle-button-circle {
+  left: 78px;
+  background-color: #fff;
+}
+.draw-line-screen-lock-toggle-button
+  > input:checked
+  ~ .draw-line-screen-lock-toggle-button-content {
+  border-color: transparent;
+  transition: all 0s;
+}
+.draw-line-screen-lock-toggle-button
+  > input:checked
+  ~ .draw-line-screen-lock-toggle-button-content:after {
+  width: 100%;
+  background-color: #00c4cc;
 }
 .draw-line-change-straight-line-button,
 .draw-line-change-square-button,
@@ -98,19 +182,26 @@ body {
   background: url("./../images/check-active.png") no-repeat left top;
   background-size: contain;
 }
-.draw-line-color-picker-wrapper {
-  display: flex;
-  align-items: center;
-}
 .draw-line-color-picker {
-  width: 80%;
+  width: 60%;
   height: 30px;
+  display: block;
   margin: 0 auto;
 }
 .draw-line-footer {
-  text-align: center;
+  width: 100%;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 }
+.draw-line-back-button,
 .draw-line-reset-button {
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  font-size: 14px;
   color: #333;
   padding: 3px 8px;
   text-decoration: none;
@@ -119,6 +210,7 @@ body {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
   background-color: #fff;
 }
+.draw-line-back-button:hover,
 .draw-line-reset-button:hover {
   cursor: pointer;
   opacity: 0.6;
