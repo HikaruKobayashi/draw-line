@@ -24,6 +24,10 @@ const createElement = () => {
             <p class="draw-line-change-circle-button">丸</p>
           </li>
           <li>
+            <p class="draw-line-sub-title">line size</p>
+            <input type="range" min="1" max="20" step="1" value="2" class="draw-line-change-width"></input>
+          </li>
+          <li>
             <p class="draw-line-sub-title">line color</p>
             <input type="color" class="draw-line-color-picker">
           </li>

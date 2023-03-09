@@ -33,6 +33,9 @@ export const drawLine = () => {
   // line positions
   let storedLines = [];
 
+  // line width
+  let lineWidth = config.lineWidth;
+
   // canvas setting
   targetCanvas.width = window.innerWidth;
   targetCanvas.height = window.innerHeight;
@@ -95,7 +98,8 @@ export const drawLine = () => {
       movePointX,
       movePointY,
       lineType,
-      lineColor
+      lineColor,
+      lineWidth
     );
   });
 
@@ -113,6 +117,7 @@ export const drawLine = () => {
       endPointY: endPointY,
       lineType: lineType,
       color: lineColor,
+      size: lineWidth,
     });
   });
 
@@ -123,10 +128,11 @@ export const drawLine = () => {
     endPointX,
     endPointY,
     lineType,
-    color
+    color,
+    size
   ) => {
     context.beginPath();
-    context.lineWidth = config.lineWidth; // line width
+    context.lineWidth = size; // line width
     context.strokeStyle = color; // line color
     switch (true) {
       case lineType === config.straightLine:
@@ -171,7 +177,8 @@ export const drawLine = () => {
         storedLines[i].endPointX,
         storedLines[i].endPointY,
         storedLines[i].lineType,
-        storedLines[i].color
+        storedLines[i].color,
+        storedLines[i].size
       );
     }
   };
@@ -193,6 +200,8 @@ export const drawLine = () => {
     lineType = config.straightLine;
     lineColor = config.lineColor;
     colorBox.value = config.lineColor;
+    lineWidth = config.lineWidth;
+    changeWidthButton.value = config.lineWidth;
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     document.querySelector(".is-active").classList.remove("is-active");
     changeStraightLineButton.classList.add("is-active");
@@ -222,5 +231,11 @@ export const drawLine = () => {
     } else {
       targetCanvas.classList.add("draw-line-unlocked");
     }
+  });
+
+  // change line width
+  const changeWidthButton = document.querySelector(".draw-line-change-width");
+  changeWidthButton.addEventListener("change", function () {
+    lineWidth = this.value;
   });
 };
