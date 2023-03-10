@@ -78,14 +78,14 @@ export const drawLine = () => {
   };
 
   // get starting point
-  document.addEventListener("mousedown", (event) => {
+  targetCanvas.addEventListener("mousedown", (event) => {
     startPointX = event.clientX;
     startPointY = event.clientY;
     toggleIsMove();
   });
 
   // get moving point and draw line
-  document.addEventListener("mousemove", (event) => {
+  targetCanvas.addEventListener("mousemove", (event) => {
     if (!isMove) {
       return;
     }
@@ -104,7 +104,7 @@ export const drawLine = () => {
   });
 
   // get ending point
-  document.addEventListener("mouseup", (event) => {
+  targetCanvas.addEventListener("mouseup", (event) => {
     toggleIsMove();
     endPointX = event.clientX;
     endPointY = event.clientY;
@@ -237,5 +237,38 @@ export const drawLine = () => {
   const changeWidthButton = document.querySelector(".draw-line-change-width");
   changeWidthButton.addEventListener("change", function () {
     lineWidth = this.value;
+  });
+
+  // move draw line menu
+  const drawLineMenu = document.querySelector(".draw-line-container");
+  const moveButton = document.querySelector(".draw-line-move-area");
+  moveButton.addEventListener("mousedown", (event) => {
+    document.body.style.overflow = "hidden";
+    console.log(event);
+
+    const shiftX = event.clientX - drawLineMenu.getBoundingClientRect().left;
+    const shiftY = event.clientY - drawLineMenu.getBoundingClientRect().top;
+
+    drawLineMenu.classList.add("draw-line-is-move");
+    moveAt(event.pageX, event.pageY);
+
+    function moveAt(pageX, pageY) {
+      drawLineMenu.style.left = `${pageX - shiftX}px`;
+      drawLineMenu.style.top = `${pageY - shiftY}px`;
+    }
+
+    function onMouseMove(event) {
+      moveAt(event.pageX, event.pageY);
+    }
+
+    document.addEventListener("mousemove", onMouseMove);
+
+    drawLineMenu.onmouseup = function (event) {
+      document.removeEventListener("mousemove", onMouseMove);
+      drawLineMenu.onmouseup = null;
+      document.body.style.overflow = "auto";
+      drawLineMenu.style.top = `${event.clientY}px`;
+      drawLineMenu.classList.remove("draw-line-is-move");
+    };
   });
 };

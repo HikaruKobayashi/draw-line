@@ -5,7 +5,7 @@ const createElement = () => {
     `
       <div class="draw-line-container">
         <ul>
-          <li>
+          <li class="draw-line-move-area">
             <h1 class="draw-line-title">draw line</h1>
             <button class="draw-line-close-button"></button>
           </li>

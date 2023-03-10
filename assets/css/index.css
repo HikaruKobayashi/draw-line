@@ -10,6 +10,9 @@ body {
   top: 0;
   left: 0;
 }
+.draw-line-is-move {
+  position: absolute !important;
+}
 .draw-line-unlocked {
   pointer-events: none;
 }
@@ -40,6 +43,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: move;
 }
 .draw-line-container > ul > li:last-child {
   border-bottom: none;
