@@ -214,9 +214,8 @@ body {
   color: #333;
   padding: 3px 8px;
   text-decoration: none;
-  border: none;
+  border: 1px solid #ddd;
   border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 4px;
   background-color: #fff;
 }
 .draw-line-back-button:hover,
