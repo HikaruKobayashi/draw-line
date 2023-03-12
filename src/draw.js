@@ -1,4 +1,4 @@
-import { config } from "./config.js";
+import { constants } from "./constants.js";
 import { createItem } from "./item.js";
 
 export const drawLine = () => {
@@ -16,7 +16,7 @@ export const drawLine = () => {
   createItem();
 
   // change line color
-  let lineColor = config.lineColor;
+  let lineColor = constants.lineColor;
   let colorBox = document.querySelector(".draw-line-color-picker");
   colorBox.addEventListener("change", (event) => {
     lineColor = event.target.value;
@@ -34,7 +34,7 @@ export const drawLine = () => {
   let storedLines = [];
 
   // line width
-  let lineWidth = config.lineWidth;
+  let lineWidth = constants.lineWidth;
 
   // canvas setting
   targetCanvas.width = window.innerWidth;
@@ -42,24 +42,24 @@ export const drawLine = () => {
   const context = targetCanvas.getContext("2d");
 
   // change line type
-  let lineType = config.straightLine; // default setting
+  let lineType = constants.straightLine; // default setting
   const changeStraightLineButton = document.querySelector(
     ".draw-line-change-straight-line-button"
   );
   changeStraightLineButton.addEventListener("click", function () {
-    changeActiveLineType(this, config.straightLine);
+    changeActiveLineType(this, constants.straightLine);
   });
   const changeSquareButton = document.querySelector(
     ".draw-line-change-square-button"
   );
   changeSquareButton.addEventListener("click", function () {
-    changeActiveLineType(this, config.square);
+    changeActiveLineType(this, constants.square);
   });
   const changeCircleButton = document.querySelector(
     ".draw-line-change-circle-button"
   );
   changeCircleButton.addEventListener("click", function () {
-    changeActiveLineType(this, config.circle);
+    changeActiveLineType(this, constants.circle);
   });
 
   // change active line type
@@ -135,11 +135,11 @@ export const drawLine = () => {
     context.lineWidth = size; // line width
     context.strokeStyle = color; // line color
     switch (true) {
-      case lineType === config.straightLine:
+      case lineType === constants.straightLine:
         context.moveTo(startPointX, startPointY);
         context.lineTo(endPointX, endPointY);
         break;
-      case lineType === config.square:
+      case lineType === constants.square:
         context.rect(
           startPointX,
           startPointY,
@@ -147,7 +147,7 @@ export const drawLine = () => {
           endPointY - startPointY
         );
         break;
-      case lineType === config.circle:
+      case lineType === constants.circle:
         context.arc(
           endPointX - (endPointX - startPointX) / 2,
           endPointY - (endPointY - startPointY) / 2,
@@ -197,11 +197,11 @@ export const drawLine = () => {
   });
   const resetDrawLine = () => {
     storedLines = [];
-    lineType = config.straightLine;
-    lineColor = config.lineColor;
-    colorBox.value = config.lineColor;
-    lineWidth = config.lineWidth;
-    changeWidthButton.value = config.lineWidth;
+    lineType = constants.straightLine;
+    lineColor = constants.lineColor;
+    colorBox.value = constants.lineColor;
+    lineWidth = constants.lineWidth;
+    changeWidthButton.value = constants.lineWidth;
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     document.querySelector(".is-active").classList.remove("is-active");
     changeStraightLineButton.classList.add("is-active");
@@ -244,7 +244,6 @@ export const drawLine = () => {
   const moveButton = document.querySelector(".draw-line-move-area");
   moveButton.addEventListener("mousedown", (event) => {
     document.body.style.overflow = "hidden";
-    console.log(event);
 
     const shiftX = event.clientX - drawLineMenu.getBoundingClientRect().left;
     const shiftY = event.clientY - drawLineMenu.getBoundingClientRect().top;
