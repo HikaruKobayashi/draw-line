@@ -1,5 +1,6 @@
 import { constants } from "./constants.js";
 import { createItem } from "./item.js";
+import type { Line } from "../types/line";
 
 export const drawLine = () => {
   // avoid duplication
@@ -17,9 +18,18 @@ export const drawLine = () => {
 
   // change line color
   let lineColor = constants.lineColor;
-  let colorBox = document.querySelector(".draw-line-color-picker");
-  colorBox.addEventListener("change", (event) => {
-    lineColor = event.target.value;
+  let colorBox: HTMLInputElement = <HTMLInputElement>(
+    document.querySelector(".draw-line-color-picker")!
+  );
+  if (colorBox === null) {
+    return;
+  }
+  colorBox.addEventListener("change", (event: Event) => {
+    const { target } = event;
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
+    lineColor = target.value;
   });
 
   // init coordinate setting
@@ -31,7 +41,7 @@ export const drawLine = () => {
   let movePointY = 0;
 
   // line positions
-  let storedLines = [];
+  let storedLines: Line[] = [];
 
   // line width
   let lineWidth = constants.lineWidth;
@@ -39,32 +49,39 @@ export const drawLine = () => {
   // canvas setting
   targetCanvas.width = window.innerWidth;
   targetCanvas.height = window.innerHeight;
-  const context = targetCanvas.getContext("2d");
+  const context = targetCanvas.getContext("2d")!;
 
   // change line type
   let lineType = constants.straightLine; // default setting
   const changeStraightLineButton = document.querySelector(
     ".draw-line-change-straight-line-button"
   );
-  changeStraightLineButton.addEventListener("click", function () {
-    changeActiveLineType(this, constants.straightLine);
-  });
   const changeSquareButton = document.querySelector(
     ".draw-line-change-square-button"
   );
-  changeSquareButton.addEventListener("click", function () {
-    changeActiveLineType(this, constants.square);
-  });
   const changeCircleButton = document.querySelector(
     ".draw-line-change-circle-button"
   );
+  if (
+    changeStraightLineButton === null ||
+    changeSquareButton === null ||
+    changeCircleButton === null
+  ) {
+    return;
+  }
+  changeStraightLineButton.addEventListener("click", function () {
+    changeActiveLineType(changeStraightLineButton, constants.straightLine);
+  });
+  changeSquareButton.addEventListener("click", function () {
+    changeActiveLineType(changeSquareButton, constants.square);
+  });
   changeCircleButton.addEventListener("click", function () {
-    changeActiveLineType(this, constants.circle);
+    changeActiveLineType(changeCircleButton, constants.circle);
   });
 
   // change active line type
-  const changeActiveLineType = (item, type) => {
-    document.querySelector(".is-active").classList.remove("is-active");
+  const changeActiveLineType = (item: Element, type: number) => {
+    document.querySelector(".is-active")!.classList.remove("is-active");
     item.classList.add("is-active");
     lineType = type;
   };
@@ -123,14 +140,17 @@ export const drawLine = () => {
 
   // draw a line
   const drawLine = (
-    startPointX,
-    startPointY,
-    endPointX,
-    endPointY,
-    lineType,
-    color,
-    size
+    startPointX: number,
+    startPointY: number,
+    endPointX: number,
+    endPointY: number,
+    lineType: number,
+    color: string,
+    size: number
   ) => {
+    if (context === null) {
+      return;
+    }
     context.beginPath();
     context.lineWidth = size; // line width
     context.strokeStyle = color; // line color
@@ -165,6 +185,10 @@ export const drawLine = () => {
   };
 
   const resetAndDraw = () => {
+    if (context === null) {
+      return;
+    }
+
     // reset line
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     if (storedLines.length === 0) {
@@ -185,6 +209,9 @@ export const drawLine = () => {
 
   // back to previous states
   const backButton = document.querySelector(".draw-line-back-button");
+  if (backButton === null) {
+    return;
+  }
   backButton.addEventListener("click", () => {
     storedLines.pop();
     resetAndDraw();
@@ -192,6 +219,9 @@ export const drawLine = () => {
 
   // reset all lines
   const resetButton = document.querySelector(".draw-line-reset-button");
+  if (resetButton === null) {
+    return;
+  }
   resetButton.addEventListener("click", () => {
     resetDrawLine();
   });
@@ -201,30 +231,39 @@ export const drawLine = () => {
     lineColor = constants.lineColor;
     colorBox.value = constants.lineColor;
     lineWidth = constants.lineWidth;
-    changeWidthButton.value = constants.lineWidth;
+    changeWidthButton.value = String(constants.lineWidth);
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    document.querySelector(".is-active").classList.remove("is-active");
+    document.querySelector(".is-active")!.classList.remove("is-active");
     changeStraightLineButton.classList.add("is-active");
   };
 
   // close this extension
   const closeButton = document.querySelector(".draw-line-close-button");
+  if (closeButton === null) {
+    return;
+  }
   closeButton.addEventListener("click", () => {
     closeExtenstion();
   });
   const closeExtenstion = () => {
     const container = document.querySelector(".draw-line-container");
     let targetCanvas = document.querySelector(".draw-line");
+    if (container === null || targetCanvas === null) {
+      return;
+    }
     if (targetCanvas !== null) {
       document.body.removeChild(targetCanvas);
       document.body.removeChild(container);
     }
     storedLines = [];
-    targetCanvas = "";
+    targetCanvas = null;
   };
 
   // toggle browser control
   const lockButton = document.querySelector(".draw-line-lock-button");
+  if (lockButton === null) {
+    return;
+  }
   lockButton.addEventListener("change", () => {
     if (targetCanvas.classList.contains("draw-line-unlocked")) {
       targetCanvas.classList.remove("draw-line-unlocked");
@@ -234,40 +273,58 @@ export const drawLine = () => {
   });
 
   // change line width
-  const changeWidthButton = document.querySelector(".draw-line-change-width");
-  changeWidthButton.addEventListener("change", function () {
-    lineWidth = this.value;
-  });
+  const changeWidthButton: HTMLInputElement = <HTMLInputElement>(
+    document.querySelector(".draw-line-change-width")!
+  );
+  if (changeWidthButton === null) {
+    return;
+  }
+  changeWidthButton.addEventListener(
+    "change",
+    function (this: HTMLInputElement) {
+      lineWidth = Number(this.value);
+    }
+  );
 
   // move draw line menu
-  const drawLineMenu = document.querySelector(".draw-line-container");
   const moveButton = document.querySelector(".draw-line-move-area");
-  moveButton.addEventListener("mousedown", (event) => {
+  if (moveButton === null) {
+    return;
+  }
+  moveButton.addEventListener("mousedown", (event: Event | MouseEvent) => {
+    const drawLineMenu: HTMLElement = <HTMLElement>(
+      document.querySelector(".draw-line-container")!
+    );
+
+    if (drawLineMenu === null) {
+      return;
+    }
     document.body.style.overflow = "hidden";
 
-    const shiftX = event.clientX - drawLineMenu.getBoundingClientRect().left;
-    const shiftY = event.clientY - drawLineMenu.getBoundingClientRect().top;
-
-    drawLineMenu.classList.add("draw-line-is-move");
-    moveAt(event.pageX, event.pageY);
-
-    function moveAt(pageX, pageY) {
-      drawLineMenu.style.left = `${pageX - shiftX}px`;
-      drawLineMenu.style.top = `${pageY - shiftY}px`;
-    }
-
-    function onMouseMove(event) {
+    if (event instanceof MouseEvent) {
+      const shiftX = event.clientX - drawLineMenu.getBoundingClientRect().left;
+      const shiftY = event.clientY - drawLineMenu.getBoundingClientRect().top;
+      drawLineMenu.classList.add("draw-line-is-move");
       moveAt(event.pageX, event.pageY);
+
+      function moveAt(pageX: number, pageY: number) {
+        drawLineMenu.style.left = `${pageX - shiftX}px`;
+        drawLineMenu.style.top = `${pageY - shiftY}px`;
+      }
+
+      function onMouseMove(event: MouseEvent) {
+        moveAt(event.pageX, event.pageY);
+      }
+
+      document.addEventListener("mousemove", onMouseMove);
+
+      drawLineMenu.onmouseup = function (event: MouseEvent) {
+        document.removeEventListener("mousemove", onMouseMove);
+        drawLineMenu.onmouseup = null;
+        document.body.style.overflow = "auto";
+        drawLineMenu.style.top = `${event.clientY}px`;
+        drawLineMenu.classList.remove("draw-line-is-move");
+      };
     }
-
-    document.addEventListener("mousemove", onMouseMove);
-
-    drawLineMenu.onmouseup = function (event) {
-      document.removeEventListener("mousemove", onMouseMove);
-      drawLineMenu.onmouseup = null;
-      document.body.style.overflow = "auto";
-      drawLineMenu.style.top = `${event.clientY}px`;
-      drawLineMenu.classList.remove("draw-line-is-move");
-    };
   });
 };

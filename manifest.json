@@ -13,11 +13,11 @@
     {
       "run_at": "document_end",
       "matches": ["<all_urls>"],
-      "js": ["src/loader.js"]
+      "js": ["dist/loader.js"]
     }
   ],
   "background": {
-    "service_worker": "src/background.js"
+    "service_worker": "dist/background.js"
   },
   "web_accessible_resources": [
     {
@@ -26,7 +26,12 @@
         "src/content.js",
         "src/draw.js",
         "src/constants.js",
-        "src/item.js"
+        "src/item.js",
+        "dist/content.js",
+        "dist/draw.js",
+        "dist/constants.js",
+        "dist/item.js",
+        "types/*"
       ],
       "matches": ["<all_urls>"]
     }
